@@ -1,2 +1,2 @@
 # ilService_SpringBoot
-Spring Boot ile il ekleme,silme,günceleme,arama fonksiyonları içeren basit bir Java projesi
+Spring Boot ile 'il' ekleme,silme,günceleme,arama fonksiyonları var. Verileri MongoDB üzerinde tutan basit bir Java projesi
