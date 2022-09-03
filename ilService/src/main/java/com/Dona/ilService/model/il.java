@@ -17,7 +17,7 @@ import java.util.Date;
 public class il {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
 
     private Date createdDate = new Date();
 

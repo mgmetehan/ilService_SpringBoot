@@ -4,17 +4,26 @@ import com.Dona.ilService.exception.ilAlreadyExistsException;
 import com.Dona.ilService.exception.ilNotFoundException;
 import com.Dona.ilService.model.il;
 import com.Dona.ilService.service.ilService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/iller")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ilController {
     private static final List<il> iller = new ArrayList<>();
 
@@ -23,13 +32,12 @@ public class ilController {
     //illeri isimle arama
     @GetMapping
     public ResponseEntity<List<il>> getIller(@RequestParam(required = false) String name) {
-        //Bu zorunlu olmayan parametre
         return new ResponseEntity<>(ilService.getIller(name), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<il> getIl(@PathVariable String id) {
-        return new ResponseEntity<>(getById(id), HttpStatus.OK);
+    public ResponseEntity<il> getIl(@PathVariable Long id) {
+        return new ResponseEntity<>(ilService.getIlById(id), HttpStatus.OK);
     }
 
     @PostMapping
@@ -38,18 +46,18 @@ public class ilController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> getIl(@PathVariable String id, @RequestBody il newIl) {
+    public ResponseEntity<Void> getIl(@PathVariable Long id, @RequestBody il newIl) {
         ilService.updateIl(id, newIl);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteIl(@PathVariable String id) {
+    public ResponseEntity<Void> deleteIl(@PathVariable Long id) {
         ilService.deleteIl(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    private il getById(String id) {
+    private il getById(Long id) {
         return ilService.getIlById(id);
     }
 
