@@ -5,6 +5,7 @@ import com.Dona.ilService.exception.ilNotFoundException;
 import com.Dona.ilService.model.il;
 import com.Dona.ilService.repository.ilRepository;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class ilService {
 
     private final ilRepository ilRepository;
@@ -26,7 +28,7 @@ public class ilService {
 
     public il createIl(il newIl) {
         Optional<il> ilByName = ilRepository.findByName(newIl.getName());
-        if (ilByName.isPresent()){
+        if (ilByName.isPresent()) {
             throw new ilAlreadyExistsException("Il already exists with name: " + newIl.getName());
         }
         return ilRepository.save(newIl);
